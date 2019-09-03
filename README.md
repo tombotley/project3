@@ -2,6 +2,6 @@
 
 Web Programming with Python and JavaScript
 
-/* Under Construction */
+# Under Construction
 
-# Featuring Django, Python, JavaScript, SQLite, HTML, CSS, Bootstrap 4, Stripe API
+Featuring Django, Python, JavaScript, SQLite, HTML, CSS, Bootstrap 4, Stripe API
