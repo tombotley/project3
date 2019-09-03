@@ -223,7 +223,6 @@ def add_item(request):
 @login_required(login_url='login')
 def remove_item(request, id):
 
-    print('Here lies item id, and he is fucking pissed off!')
     print(id)
     item = OrderItem.objects.filter(pk=id)
     item[0].delete()
