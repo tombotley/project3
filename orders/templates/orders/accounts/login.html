@@ -1,0 +1,22 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block page_content %}
+    <div id="login_page">
+        <p class="title">Login to Pinocchio's!</p>
+        <div id="login_signup_form">
+            <form action="{% url 'login' %}" method="post" autocomplete="off">
+                {% csrf_token %}
+                {{ form }}
+                <input class="btn btn-dark" type="submit" value="Submit">
+            </form>
+            {% if error %}
+            <p>{{ error }} (<a href="#">forgotten your password?</a>)</p>
+            {% endif %}
+            <p>Not registered? Signup <a href="{% url 'register' %}">here!</a></p>
+        </div>
+    </div>
+{% endblock %}
