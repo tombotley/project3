@@ -1,0 +1,145 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Order
+{% endblock %}
+
+{% block script %}
+    {% load static %}
+    {% load jsonify %}
+    <script src="{% static 'orders/order.js' %}"></script>
+    <script>var pizza_prices = '{{ pizza_prices|jsonify }}';</script>
+    <script>var sub_prices = '{{ sub_prices|jsonify }}';</script>
+    <script>var platter_prices = '{{ platter_prices|jsonify }}';</script>
+{% endblock %}
+
+{% block page_content %}
+    <div id="page_content">
+        <div id="order_page">
+            <form id="pizza_form" class="order_form" action="{% url 'add_item' %}" method="post">
+                {% csrf_token %}
+                <h2>Pizzas</h2>
+                <span>Select your pizza</span>
+                <select id="pizza_selection" name="pizza_selection" class="custom-select" onchange="pizzaToppings()" autocomplete="off" required>
+                    <option value="unselected" data-desc="unselected" selected>-- select pizza --</option>
+                    {% for pizza in pizzas %}
+                    <option class="pizza" value="{{ pizza.id }}" data-desc="{{ pizza.desc }}">{{ pizza }}</option>
+                    {% endfor %}
+                </select>
+                <span>Style</span>
+                <select id="style_selection" name="style_selection" class="custom-select" onchange="resetTotal('pizza')" autocomplete="off" required>
+                    <option value="unselected" selected>-- select style --</option>
+                    {% for style in styles %}
+                    <option class="style" value="{{ style.id }}">{{ style }}</option>
+                    {% endfor %}
+                </select>
+                <span>Size</span>
+                <select id="pizza_size_selection" name="pizza_size_selection" class="custom-select" onchange="resetTotal('pizza')" autocomplete="off" required>
+                    <option value="unselected" selected>-- select size --</option>
+                    {% for size in sizes %}
+                    <option class="size" value="{{ size.id }}">{{ size }}</option>
+                    {% endfor %}
+                </select>
+
+                <div id="toppings">
+                    <span>Choose your topping(s)</span>
+                    <select id="topping1" name="topping1" class="custom-select" autocomplete="off" required>
+                        <option value="unselected" selected>-- select topping --</option>
+                        {% for topping in toppings %}
+                        <option value="{{ topping.id }}">{{ topping }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="topping2" name="topping2" class="custom-select" autocomplete="off" required>
+                        <option value="unselected" selected>-- select topping --</option>
+                        {% for topping in toppings %}
+                        <option value="{{ topping.id }}">{{ topping }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="topping3" name="topping3" class="custom-select" autocomplete="off" required>
+                        <option value="unselected" selected>-- select topping --</option>
+                        {% for topping in toppings %}
+                        <option value="{{ topping.id }}">{{ topping }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <span>Quantity</span>
+                <div class="def-number-input number-input safari_only">
+                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" onMouseDown="resetTotal('pizza')"></button>
+                    <input class="quantity pizza_quantity" min="1" name="quantity" value="1" type="number" onkeyup="resetTotal('pizza')" autocomplete="off">
+                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" onMouseDown="resetTotal('pizza')"></button>
+                </div>
+
+                <div id="check_pizza_total">
+                    <button type="button" class="btn btn-dark">Check total</button>
+                    <span id="pizza_total">$</span>
+                </div>
+
+                <button id="add_pizza" type="button" class="btn btn-dark">Add to basket</button>
+            </form>
+
+            <form id="sub_form" class="order_form" action="{% url 'add_item' %}" method="post">
+                {% csrf_token %}
+                <h2>Subs</h2>
+                <span>Choose your sub</span>
+                <select id="sub_selection" name="sub_selection" class="custom-select" onchange="resetTotal('sub')" autocomplete="off" required>
+                    <option value="unselected" data-desc="unselected" selected>-- select sub --</option>
+                    {% for sub in subs %}
+                    <option class="sub" value="{{ sub.id }}" data-desc="{{ sub.desc }}">{{ sub }}</option>
+                    {% endfor %}
+                </select>
+                <span>Size</span>
+                <select id="sub_size_selection" name="sub_size_selection" class="custom-select" onchange="resetTotal('sub')" autocomplete="off" required>
+                    <option value="unselected" selected>-- select size --</option>
+                    {% for size in sizes %}
+                    <option class="size" value="{{ size.id }}">{{ size }}</option>
+                    {% endfor %}
+                </select>
+
+                <div id="extras">
+                    <span>Extras</span><br>
+                    <button id="add_extras" type="button" class="btn btn-dark" onMouseDown="resetTotal('sub')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button id="remove_extras" type="button" class="btn btn-dark" onMouseDown="resetTotal('sub')"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <select id="extra1" name="extra1" class="custom-select extra" autocomplete="off">
+                        <option value="unselected" selected>-- select extra --</option>
+                        {% for extra in extras %}
+                        <option value="{{ extra.id }}" data-price="{{ extra.price }}">{{ extra }} (+{{ extra.price }})</option>
+                        {% endfor %}
+                    </select>
+                    <select id="extra2" name="extra2" class="custom-select extra" onchange="resetTotal('sub')" autocomplete="off">
+                        <option value="unselected" selected>-- select extra --</option>
+                        {% for extra in extras %}
+                        <option value="{{ extra.id }}" data-price="{{ extra.price }}">{{ extra }} (+{{ extra.price }})</option>
+                        {% endfor %}
+                    </select>
+                    <select id="extra3" name="extra3" class="custom-select extra" onchange="resetTotal('sub')" autocomplete="off">
+                        <option value="unselected" selected>-- select extra --</option>
+                        {% for extra in extras %}
+                        <option value="{{ extra.id }}" data-price="{{ extra.price }}">{{ extra }} (+{{ extra.price }})</option>
+                        {% endfor %}
+                    </select>
+                    <select id="extra4" name="extra4" class="custom-select extra" onchange="resetTotal('sub')" autocomplete="off">
+                        <option value="unselected" selected>-- select extra --</option>
+                        {% for extra in extras %}
+                        <option value="{{ extra.id }}" data-price="{{ extra.price }}">{{ extra }} (+{{ extra.price }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <span>Quantity</span>
+                <div class="def-number-input number-input safari_only">
+                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" onMouseDown="resetTotal('sub')"></button>
+                    <input class="quantity sub_quantity" min="1" name="quantity" value="1" type="number" onkeyup="resetTotal('sub')" autocomplete="off">
+                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" onMouseDown="resetTotal('sub')"></button>
+                </div>
+
+                <div id="check_sub_total">
+                    <button type="button" class="btn btn-dark">Check total</button>
+                    <span id="sub_total">$</span>
+                </div>
+
+                <button id="add_sub" type="button" class="btn btn-dark">Add to basket</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

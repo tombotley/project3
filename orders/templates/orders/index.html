@@ -1,0 +1,256 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Pinocchio's
+{% endblock %}
+
+{% block welcome %}
+    <div id="welcome">
+        <h1>Welcome to<br>Pinocchio's Pizza<br>& Subs!</h1>
+    </div>
+{% endblock %}
+
+{% block page_content %}
+    <div id="page_content">
+        <div id="menu">
+            <p class="title">Browse our menu</p>
+            <div id="pizza_menu">
+                <h2>Pizzas</h2>
+                <table class="table table-sm w-auto mx-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Small<br>Regular</th>
+                            <th scope="col">Large<br>Regular</th>
+                            <th scope="col">Small<br>Sicilian</th>
+                            <th scope="col">Large<br>Sicilian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Cheese</th>
+                            <td>$12.20</td>
+                            <td>$17.45</td>
+                            <td>$23.45</td>
+                            <td>$37.70</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1 Topping</th>
+                            <td>$13.20</td>
+                            <td>$19.45</td>
+                            <td>$25.45</td>
+                            <td>$39.70</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2 Toppings</th>
+                            <td>$14.70</td>
+                            <td>$21.45</td>
+                            <td>$27.45</td>
+                            <td>$41.70</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3 Toppings</th>
+                            <td>$15.70</td>
+                            <td>$23.45</td>
+                            <td>$28.45</td>
+                            <td>$43.70</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Special</th>
+                            <td>$17.25</td>
+                            <td>$25.45</td>
+                            <td>$29.45</td>
+                            <td>$44.70</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Toppings</h5>
+                <p>Pepperoni, Sausage, Mushrooms, Onions, Ham, Canadian Bacon, Pineapple, Eggplant, Tomato & Basil, Green Peppers, Hamburger, Spinach, Artichoke, Buffalo Chicken, Barbecue Chicken, Anchovies, Black Olives, Fresh Garlic, Zucchini</p>
+            </div>
+            <div id="subs_menu">
+                <h2>Subs</h2>
+                <table class="table table-sm w-auto mx-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Small</th>
+                            <th scope="col">Large</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Cheese</th>
+                            <td>$6.50</td>
+                            <td>$7.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Italian</th>
+                            <td>$6.50</td>
+                            <td>$7.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ham + Cheese</th>
+                            <td>$6.50</td>
+                            <td>$7.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Meatball</th>
+                            <td>$6.50</td>
+                            <td>$7.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tuna</th>
+                            <td>$6.50</td>
+                            <td>$7.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Turkey</th>
+                            <td>$7.50</td>
+                            <td>$8.50</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Chicken Parmigiana</th>
+                            <td>$7.50</td>
+                            <td>$8.50</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Eggplant Parmigiana</th>
+                            <td>$6.50</td>
+                            <td>$7.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Steak</th>
+                            <td>$6.50</td>
+                            <td>$7.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Steak + Cheese</th>
+                            <td>$6.95</td>
+                            <td>$8.50</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sausage, Peppers & Onions</th>
+                            <td></td>
+                            <td>$8.50</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Hamburger</th>
+                            <td>$4.60</td>
+                            <td>$6.95</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cheeseburger</th>
+                            <td>$5.10</td>
+                            <td>$7.45</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fried Chicken</th>
+                            <td>$6.95</td>
+                            <td>$8.50</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Veggie</th>
+                            <td>$6.95</td>
+                            <td>$8.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Extras</h5>
+                <p>Mushrooms (+0.50), Green Peppers (+0.50), Onions (+0.50), Extra Cheese (+0.50)</p>
+            </div>
+            <div id="menu_additional" class="container">
+                <div class="row">
+                    <div id="pasta_menu" class="col-sm">
+                    <h2>Pasta</h2>
+                    <table class="table table-sm w-auto mx-auto">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Baked Ziti w/Mozzarella</th>
+                                <td>$6.50</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Baked Ziti w/Meatballs</th>
+                                <td>$8.75</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Baked Ziti w/Chicken</th>
+                                <td>$9.75</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <div id="platter_menu" class="col-sm">
+                    <h2>Dinner Platters</h2>
+                    <table class="table table-sm w-auto mx-auto">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Small</th>
+                                <th scope="col">Large</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Garden Salad</th>
+                                <td>$35.00</td>
+                                <td>$60.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Greek Salad</th>
+                                <td>$45.00</td>
+                                <td>$70.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Antipasto</th>
+                                <td>$45.00</td>
+                                <td>$70.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Baked Ziti</th>
+                                <td>$35.00</td>
+                                <td>$60.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Meatball Parm</th>
+                                <td>$45.00</td>
+                                <td>$70.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Chicken Parm</th>
+                                <td>$45.00</td>
+                                <td>$80.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <div id="salad_menu" class="col-sm">
+                        <h2>Salads</h2>
+                        <table class="table table-sm w-auto mx-auto">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Garden Salad</th>
+                                    <td>$6.25</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Greek Salad</th>
+                                    <td>$8.25</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Antipasto</th>
+                                    <td>$8.25</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Salad w/Tuna</th>
+                                    <td>$8.25</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="foot">
+            <a class="btn btn-dark btn-lg" href="{% url 'order' %}" role="button">Place an order</a>
+        </div>
+    </div>
+{% endblock %}
