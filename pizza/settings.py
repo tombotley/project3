@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jsonify',
+    'stripe',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+
+# smtpd email debugging server settings
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+
+# Stripe Settings
+
+if DEBUG:
+    # test keys
+    STRIPE_PUBLISHABLE_KEY = ''
+    STRIPE_SECRET_KEY = ''
+else:
+    # live keys
+    STRIPE_PUBLISHABLE_KEY = ''
+    STRIPE_SECRET_KEY = ''
