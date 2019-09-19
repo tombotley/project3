@@ -11,7 +11,7 @@ from .forms import Registration, Login
 
 import stripe
 
-stripe.api_key = "sk_test_QFkjmn1BBHG58WXR7dlmfHTo00MeZ1ltKh"
+stripe.api_key = ""
 
 
 def index(request):
