@@ -14,7 +14,7 @@
                 <input class="btn btn-dark" type="submit" value="Submit">
             </form>
             {% if error %}
-            <p>{{ error }} (<a href="#">forgotten your password?</a>)</p>
+            <p id="pw_error">{{ error }} (<a href="{% url 'reset_password' %}">forgotten your password?</a>)</p>
             {% endif %}
             <p>Not registered? Signup <a href="{% url 'register' %}">here!</a></p>
         </div>
