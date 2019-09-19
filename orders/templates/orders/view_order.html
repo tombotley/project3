@@ -1,0 +1,28 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    View order
+{% endblock %}
+
+{% block script %}
+    <!-- link any scripts here -->
+{% endblock %}
+
+{% block page_content %}
+    <div id="page_content">
+        <div id="orders_page">
+            <div id="orders">
+                {% for order in order %}
+                <p id="order">{{ order }}</p>
+                {% endfor %}
+                <table>
+                    {% for item in items %}
+                    <tr class="items">
+                        <td class="item">{{ item }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

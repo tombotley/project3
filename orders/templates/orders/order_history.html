@@ -1,0 +1,38 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Order history
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block page_content %}
+    <div id="page_content">
+        <div id="orders_page">
+            <div id="orders">
+            {% if orders %}
+                <p id="heading">Order history:</p>
+                <table>
+                    {% for order in orders %}
+                    <tr class="details">
+                        <td class="order_summary top_row">{{ order }}</td>
+                        <td class="order_status top_row">Status: <span class="status">{{ order.order_status }}</span></td>
+                    </tr>
+                    <tr class="view">
+                        <td class="bottom_row" colspan="2">
+                            <a class="btn btn-outline-dark btn-sm" href="{% url 'view_order' id=order.id %}" role="button">View order</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <h3 class="empty">You have not placed any orders.</h3>
+                <a class="btn btn-dark" href="{% url 'order' %}" role="button">Place an order</a>
+            {% endif %}
+                <a class="btn btn-dark" href="{% url 'orders' %}" role="button">Current orders</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

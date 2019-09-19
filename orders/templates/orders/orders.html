@@ -1,0 +1,42 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Your orders
+{% endblock %}
+
+{% block page_content %}
+    <div id="page_content">
+        {% if messages %}
+            <ul class="messages order_success">
+                {% for message in messages %}
+                <li><i class="fa fa-check" aria-hidden="true"></i> {{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div id="orders_page">
+            <div id="orders">
+            {% if orders %}
+                <p id="heading">Current order(s):</p>
+                <table>
+                    {% for order in orders %}
+                    <tr class="details">
+                        <td class="order_summary top_row">{{ order }}</td>
+                        <td class="order_status top_row">Status: <span class="status">{{ order.order_status }}</span></td>
+                    </tr>
+                    <tr class="view">
+                        <td class="bottom_row" colspan="2">
+                            <a class="btn btn-outline-dark btn-sm" href="{% url 'view_order' id=order.id %}" role="button">View order</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <p>You will receive an email when an order is ready for collection. You can also refresh this page to check the current status.</p>
+            {% else %}
+                <h3 class="empty">You have no current orders.</h3>
+                <a class="btn btn-dark" href="{% url 'order' %}" role="button">Place an order</a>
+            {% endif %}
+                <a class="btn btn-dark" href="{% url 'order_history' %}" role="button">Order history</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

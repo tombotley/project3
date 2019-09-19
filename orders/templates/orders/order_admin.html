@@ -1,0 +1,84 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Order admin
+{% endblock %}
+
+{% block script %}
+    {% load static %}
+    <script src="{% static 'orders/order_admin.js' %}"></script>
+{% endblock %}
+
+{% block page_content %}
+    <div id="page_content">
+        <div id="orders_page">
+            <div id="status_modal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="modal-title">Update order status</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <select id="status_select" class="form-control" autocomplete="off">
+                                    <option value="unselected" selected>-- select status --</option>
+                                    <option value="Preparing">Preparing</option>
+                                    <option value="Ready">Ready</option>
+                                    <option value="Complete">Complete</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="update_status" type="button" class="btn btn-success">Update</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="email_modal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Contact customer</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Modal body text goes here.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Send</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="orders">
+            {% if orders %}
+                <p id="heading">Current order(s):</p>
+                <table>
+                    {% for order in orders %}
+                    <tr class="details">
+                        <td class="order_summary top_row">{{ order }}</td>
+                        <td class="order_status top_row">Status: <span class="status">{{ order.order_status }}</span></td>
+                    </tr>
+                    <tr class="view">
+                        <td class="bottom_row" colspan="2">
+                            <a class="btn btn-outline-dark btn-sm" href="{% url 'view_order' id=order.id %}" role="button">View order</a>
+                            <button class="btn btn-outline-dark btn-sm statusBtn" value="{{ order.id }}" data-toggle="modal" data-target="#status_modal" type="button">Update status</button>
+                            <a class="btn btn-outline-dark btn-sm" href="{% url 'view_order' id=order.id %}" role="button">Contact customer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <h3 class="empty">There are no current orders.</h3>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

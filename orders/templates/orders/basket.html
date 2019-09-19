@@ -1,7 +1,7 @@
 {% extends "orders/base.html" %}
 
 {% block title %}
-    Basket
+    Your basket
 {% endblock %}
 
 {% block script %}
@@ -13,20 +13,24 @@
         <div id="basket_page">
             <div id="basket">
                 {% if items %}
-                <table>
-                    {% for item in items %}
-                    <tr>
-                        <td class="item">{{ item }}</td>
-                        <td class="remove"><a href="{% url 'remove_item' item.id %}"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-                <p id="basket_total">Basket total: ${{ total }}</p>
-                <a class="btn btn-dark" href="" role="button">Checkout</a>
-                <a class="btn btn-dark" href="{% url 'order' %}" role="button">Add more items</a>
+                    <table>
+                        {% for item in items %}
+                        <tr>
+                            <td class="item">{{ item }}</td>
+                            <td class="remove">
+                                <a href="{% url 'remove_item' id=item.id basket_id=basket_id %}">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <p id="basket_total">Basket total: ${{ total }}</p>
+                    <a class="btn btn-dark" href="{% url 'checkout' %}" role="button">Checkout</a>
+                    <a class="btn btn-dark" href="{% url 'order' %}" role="button">Add more items</a>
                 {% else %}
                     <h3 class="empty">Your basket is empty!</h3>
-                    <a class="btn btn-dark" href="{% url 'order' %}" role="button">Choose your items</a>
+                    <a class="btn btn-dark" href="{% url 'order' %}" role="button">Add items</a>
                 {% endif %}
             </div>
         </div>

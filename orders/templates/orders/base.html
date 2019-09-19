@@ -7,7 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         {% block script %}{% endblock %}
         <script src="https://use.fontawesome.com/9d601b8305.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'orders/style.css' %}"/>
         <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
     </head>
@@ -16,10 +17,15 @@
             <nav class="navbar navbar-dark bg-danger justify-content-between">
                 <a class="navbar-brand" href="{% url 'index' %}">Pinocchio's</a>
                 <div id="user_menu">
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_superuser %}
                         <span>Hi {{ user.get_username }}!</span>
-                        <a href="{% url 'basket' %}"><i class="fa fa-shopping-basket" aria-hidden="true"></i>View Basket</a>
-                        <a href=""><i class="fa fa-user-circle-o" aria-hidden="true"></i>Your Orders</a>
+                        <a href="{% url 'order_admin' %}"><i class="fa fa-book" aria-hidden="true"></i>Order Admin</a>
+                        <a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                    {% elif user.is_authenticated %}
+                        <span>Hi {{ user.get_username }}!</span>
+                        <script src="{% static 'orders/basket_sum.js' %}"></script>
+                        <a href="{% url 'basket' %}"><i class="fa fa-shopping-basket" aria-hidden="true"></i>View Basket<span id="nav_basket_count"></span></a>
+                        <a href="{% url 'orders' %}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Your Orders</a>
                         <a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
                     {% else %}
                         <a href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a>
@@ -31,9 +37,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}#menu">Our Menu</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'order' %}">Place An Order</a>
-                </li>
+                {% if not request.user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'order' %}">Place An Order</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" data-target="#collapseHours" href="#">Opening Hours</a>
                 </li>
@@ -53,37 +61,45 @@
                         <p>Sunday 1 pm - 12 midnight<br>
                         Monday - Thursday 11 am - 1 am<br>
                         Friday - Saturday 11 am - 2:30 am*<br><br>
-                        Please note that when the undergraduate students are not in session we close on Friday and Saturday night at 1:00 am instead of 2:30 am.</p>
+                        Please note that when the undergraduate students are not in session we close on Friday and
+                            Saturday night at 1:00 am instead of 2:30 am.</p>
                     </div>
-                    <button type="button" class="close_info btn btn-outline-dark" data-toggle="collapse" data-target="#collapseHours">Close</button>
+                    <button type="button" class="close_info btn btn-outline-dark" data-toggle="collapse"
+                            data-target="#collapseHours">Close</button>
                 </div>
             </div>
             <div class="collapse" id="collapseDirection">
                 <div class="info_card card card-body">
                     <div class="info">
                         <h5>Directions</h5>
-                        <p>Pinocchio's is located on Winthrop street right near the corner of JFK Street next to Berk's shoes.<br>
+                        <p>Pinocchio's is located on Winthrop street right near the corner of JFK Street next to Berk's
+                            shoes.<br>
                         We are 2 blocks from the Harvard Square T stop.<br>
                         Do not park across the street from us! It is a tow zone!</p>
                     </div>
-                    <button type="button" class="close_info btn btn-outline-dark" data-toggle="collapse" data-target="#collapseDirection">Close</button>
+                    <button type="button" class="close_info btn btn-outline-dark" data-toggle="collapse"
+                            data-target="#collapseDirection">Close</button>
                 </div>
             </div>
             <div class="collapse" id="collapseContact">
                 <div class="info_card card card-body">
                     <div class="info">
                         <h5>Contact Us</h5>
-                        <p>Telephone: 617-876-4897 or 617-876-0012<br>
-                        Fax: 617-661-6188<br>
-                        Twitter: @PinocchiosPizz<br>
-                        Instagram: @pinocchiospizza1<br><br>
-                        Address:<br>
+                        <p><i class="fa fa-phone" aria-hidden="true"></i> Tel: 617-876-4897 or 617-876-0012<br>
+                        <i class="fa fa-fax" aria-hidden="true"></i> Fax: 617-661-6188<br>
+                        <i class="fa fa-twitter" aria-hidden="true"></i> Twitter:
+                            <a href="https://twitter.com/PinocchiosPizz">@PinocchiosPizz</a><br>
+                        <i class="fa fa-instagram" aria-hidden="true"></i> Instagram:
+                            <a href="https://www.instagram.com/pinocchiospizza1">@pinocchiospizza1</a><br><br>
+                        <i class="fa fa-address-card" aria-hidden="true"></i> Address:<br>
                         Pinocchio's Pizza<br>
                         74 Winthrop Street<br>
                         Cambridge, MA 02138<br><br>
-                        If you have any questions or comments or would like to get on our email list you can email us at pinocchiospizza1@gmail.com</p>
+                        If you have any questions or comments or would like to get on our email list you can email us at
+                            <a href="mailto: pinocchiospizza1@gmail.com">pinocchiospizza1@gmail.com</a></p>
                     </div>
-                    <button type="button" class="close_info btn btn-outline-dark" data-toggle="collapse" data-target="#collapseContact">Close</button>
+                    <button type="button" class="close_info btn btn-outline-dark" data-toggle="collapse"
+                            data-target="#collapseContact">Close</button>
                 </div>
             </div>
 
@@ -91,7 +107,9 @@
             {% endblock %}
 
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                    crossorigin="anonymous"></script>
         </div>
     </body>
 </html>
