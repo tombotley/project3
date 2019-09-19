@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var select_pizza = document.getElementById('pizza_selection');
             var no_of_toppings = select_pizza.options[select_pizza.selectedIndex].dataset.desc;
 
-            var toppings = 'No toppings';
+            var toppings;
 
             if (no_of_toppings.charAt(0) == '1') {
                 toppings = getToppings(1);
@@ -47,12 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (toppings !== false) {
-
-                var quantity = document.querySelector('.quantity').value;
-                var total = getPizzaPrice(pizza_choice[0], pizza_choice[1], pizza_choice[2]) * quantity;
-                var cost = total.toFixed(2);
-
-                alert('pizza id: ' + pizza_choice[0] + ', style id: ' + pizza_choice[1] + ', size id: ' + pizza_choice[2] + ', topping id(s): ' + toppings + ', quantity: ' + quantity + ', total: ' + cost);
                 document.getElementById('pizza_form').submit();
             }
         }
@@ -141,6 +135,45 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(extra_remove).selectedIndex = 0;
             extra_count--;
             console.log(extra_count);
+        }
+
+    };
+
+    document.getElementById('add_pasta').onclick = function() {
+
+        var select_pasta = document.getElementById('pasta_selection');
+        pasta = pasta_selection.options[pasta_selection.selectedIndex].value;
+
+        if (pasta !== 'unselected') {
+            document.getElementById('pasta_form').submit();
+        } else {
+            alert('Please select your pasta');
+        }
+
+    };
+
+    document.getElementById('add_platter').onclick = function() {
+
+        var select_platter = document.getElementById('platter_selection');
+        platter = platter_selection.options[platter_selection.selectedIndex].value;
+
+        if (platter !== 'unselected') {
+            document.getElementById('platter_form').submit();
+        } else {
+            alert('Please select your platter');
+        }
+
+    };
+
+    document.getElementById('add_salad').onclick = function() {
+
+        var select_salad = document.getElementById('salad_selection');
+        salad = salad_selection.options[salad_selection.selectedIndex].value;
+
+        if (salad !== 'unselected') {
+            document.getElementById('salad_form').submit();
+        } else {
+            alert('Please select your salad');
         }
 
     };
